@@ -1,10 +1,19 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
+// import App from "./App";
+import * as serviceWorker from "./serviceWorker";
+// import Table from "./components/Table";
+// import Edit from "./components/edit";
+import TableComponent from "./components/TableComponent";
 
-ReactDOM.render(<App />, document.getElementById('root'));
+// ReactDOM.render(<App />, document.getElementById("root"));
+
+// ReactDOM.render(<Table />, document.getElementById("table"));
+
+// ReactDOM.render(<Edit />, document.getElementById("edit"));
+
+ReactDOM.render(<TableComponent />, document.getElementById("table"));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
