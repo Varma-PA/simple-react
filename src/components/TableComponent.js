@@ -1,32 +1,60 @@
-import React from "react";
-import { Table } from "semantic-ui-react";
+import React, { useState } from "react";
+import { Table, Button } from "semantic-ui-react";
 
-const data = [
+const mydataa = [
   {
-    "s.no": 1,
+    sno: 1,
     product: "Dress",
     quantity: "25"
   },
   {
-    "s.no": 2,
+    sno: 2,
     product: "Shoes",
     quantity: "25"
   },
   {
-    "s.no": 3,
+    sno: 3,
     product: "Watches",
     quantity: "25"
   },
   {
-    "s.no": 4,
-    product: "Dress",
-    quantity: "25"
+    sno: 4,
+    product: "Caps",
+    quantity: "30"
   }
 ];
 
 function TableComponent() {
+  const [data, setData] = useState(mydataa);
+  
+
+  const [edit, setEdit] = useState({ editMode: false });
+
+  const handleChange = (event, index) => {
+    // let newData = Json.parse(JSON.stringify(data.mydata));
+
+    console.log(index);
+
+    console.log(event.target.name);
+
+    console.log(event.target.value);
+
+    console.log(data[index]);
+
+    setData();
+  };
+
   return (
     <div>
+      <Button
+        onClick={() => {
+          setEdit(state => ({
+            editMode: !state.editMode
+          }));
+        }}
+      >
+        Edit Button
+      </Button>
       <Table>
         <Table.Header>
           <Table.HeaderCell>S.NO</Table.HeaderCell>
@@ -35,29 +63,57 @@ function TableComponent() {
         </Table.Header>
 
         <Table.Body>
-          <Table.Row>
-            <Table.Cell>1</Table.Cell>
-            <Table.Cell>Dress</Table.Cell>
-            <Table.Cell>25</Table.Cell>
-          </Table.Row>
-
-          <Table.Row>
-            <Table.Cell>2</Table.Cell>
-            <Table.Cell>Shoes</Table.Cell>
-            <Table.Cell>35</Table.Cell>
-          </Table.Row>
-          <Table.Row>
-            <Table.Cell>3</Table.Cell>
-            <Table.Cell>Watches</Table.Cell>
-            <Table.Cell>45</Table.Cell>
-          </Table.Row>
-          <Table.Row>
-            <Table.Cell>1</Table.Cell>
-            <Table.Cell>Bands</Table.Cell>
-            <Table.Cell>60</Table.Cell>
-          </Table.Row>
+          {edit.editMode ? (
+            //   True Case
+            <>
+              {data.map((item, index) => {
+                return (
+                  <Table.Row key={index}>
+                    <Table.Cell>
+                      <input
+                        placeholder={item.sno}
+                        name="sno"
+                        onChange={e => handleChange(e, index)}
+                      />
+                    </Table.Cell>
+                    <Table.Cell>
+                      {" "}
+                      <input
+                        placeholder={item.product}
+                        name="product"
+                        onChange={e => handleChange(e, index)}
+                      />
+                    </Table.Cell>
+                    <Table.Cell>
+                      {" "}
+                      <input
+                        placeholder={item.quantity}
+                        name="quantity"
+                        onChange={e => handleChange(e, index)}
+                      />
+                    </Table.Cell>
+                  </Table.Row>
+                );
+              })}
+            </>
+          ) : (
+            //   False Case
+            <>
+              {data.map((item, index) => {
+                return (
+                  <Table.Row>
+                    <Table.Cell>{item.sno}</Table.Cell>
+                    <Table.Cell>{item.product}</Table.Cell>
+                    <Table.Cell>{item.quantity}</Table.Cell>
+                  </Table.Row>
+                );
+              })}
+            </>
+          )}
         </Table.Body>
       </Table>
+
+      <h1>Edit Mode: {edit.editMode ? "true" : "false"}</h1>
     </div>
   );
 }
